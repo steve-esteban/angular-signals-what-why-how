@@ -2,13 +2,13 @@
 Repo based on Angular Signals course
 
 
-## Signals
+# Signals
 - Provide a new way for our code to tell our templates (and other code) that our data has changed
 - Improving **change detection**
 - Making code more **reactive**
 - Available for developer preview in Angular v16
 
-### Why
+## Why
 
 We want to react to changes. If
 
@@ -46,8 +46,24 @@ x.set(3); // This will update z as well
 - Provide more reactivity
 - Finer control over change detection
 
-### What
+## What
 
+
+Signal = Value + Change notification
+
+- Signals are reactive
+- A signal always has a value
+- A signal is side effect free (cause its reader is a simple pure function)
+    - Reading a signal can cause no other changes nor execute any other code. Side effect occurs when a function uses or relies on code from outside. For example as it can happen with impure function: 
+    ```
+    let counter = 0;
+    function increment() {
+        return counter++;
+    }
+    ```
+
+## How
+### Create
 
 
 
