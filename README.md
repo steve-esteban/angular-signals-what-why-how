@@ -1,7 +1,7 @@
 # angular-signals-what-why-how
 Repo based on Angular Signals course
 
-
+Source: https://youtu.be/oqYQG7QMdzw
 # Signals
 - Provide a new way for our code to tell our templates (and other code) that our data has changed
 - Improving **change detection**
