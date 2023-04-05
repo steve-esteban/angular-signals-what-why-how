@@ -62,8 +62,80 @@ Signal = Value + Change notification
     }
     ```
 
+## Where
+- Component
+- Directive
+- Service
+- Template
+- Anywhere else...
+
 ## How
-### Create
+### Create a Signal
+Create: `quantity = signal<number>(1);`
+
+- A signal created with the signal() constructor function is writable
+- The signal value can be:
+    - Set to a new value
+    - Updated based on its current value
+    - Or its content mutated (for arrays or objects)
+
+Read: `quantity();`
+- Calling the signal's getter function
+- Reads the current value of the signal
+
+### Set a Signal
+Replace a value: `this.quantity.set(qty);`
+
+- Setting a signal replaces the current value with a new value
+- Notifies any consumer* that the signal changed
+- Those consumers update when it's their turn to execute
+
+- A signal does not emit values (it isn't like an Observable)
+
+Update a value based on current value: `this.quantity.update(x=> x*2);`
+
+To change the content of a signal (not the signal itself) use mutate.
+Mutate content in place (not value itself): `this.selectedVehicle.mutate(v => v.price = v.price + (v.price * 20));`
+
+### Define a Computed Signal
+A computed signal changes when its computed signals change
+
+`exPrice = computed(() => this.selectedVehicle().price * this.quantity());`
+
+- Creates a new signal that depends on other signals
+- A computed signal si read only
+- It cannot be modified with set(), update() or mutate()
+- Value is re-computed when one (or more) of its dependent signals is changed.
+- The computed value is **memoized** meaning it stores the computed result
+- That computed value is reused next time the computed value is read (like a shareReplay)
+
+### Use effect for Side effects
+Use an effect when you want to run some code when a signal changes and that code has side effects
+`effect(() => console.log(this.selectedVehicle()));`
+
+It's like the Observable tap operator. That automatically "subscribes" to the signal
+
+- Does not change the value in the signal
+- The effect function is run when:
+    - One (or more) of its dependent signals is changed
+    - AND it's his code's turn to execute
+
+When to user Effects:
+- Logging
+- External APIs (not RxJS)
+- Not commonly used
+
+## Signals in templates
+If a signal is used in a template, Angular registers the signal as a depdendency of the view. If the signal changes, the view is re-rendered.
+- Signals will mark OnPush components for check (similar to the async pipe)
+
+
+## Suggestions
+- Continue to use event handlers for user actions
+- Use a signal or computed for any state (Data) that could change
+- Continue to use Observables for async operations (http.get)
+
+
 
 
 
